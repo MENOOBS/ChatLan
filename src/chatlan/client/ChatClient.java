@@ -38,11 +38,9 @@ public class ChatClient {
             in = new ObjectInputStream(socket.getInputStream());
             connected = true;
 
-            // Send join message
             sendMessage(new Message(username, "", Message.Type.JOIN));
             listener.onConnected(serverIP, serverPort);
 
-            // Start listening thread
             Thread listenThread = new Thread(this::listenForMessages);
             listenThread.setDaemon(true);
             listenThread.start();

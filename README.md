@@ -1,18 +1,11 @@
-# 💬 ChatLAN - Local Network Messenger
+# a project I made for fun
+
+
+# ChatLAN - Local Network Messenger
 
 Aplikasi chat real-time antar komputer dalam jaringan LAN (Local Area Network) menggunakan Java Swing.
 
-## ✨ Fitur
-
-- **🖥️ Server & Client** - Arsitektur server-client untuk komunikasi LAN
-- **💬 Group Chat** - Kirim pesan ke semua orang yang terhubung
-- **🔒 Private Message** - Kirim pesan pribadi ke user tertentu
-- **👥 User List** - Lihat siapa saja yang sedang online
-- **🎨 Modern Dark UI** - Tampilan gelap yang modern dan elegan
-- **💬 Chat Bubbles** - Pesan ditampilkan dalam bubble seperti WhatsApp
-- **📋 Server Log** - Monitor semua aktivitas di server
-
-## 🚀 Cara Menjalankan
+##  Cara Menjalankan
 
 ### Kompilasi
 ```bash
@@ -45,7 +38,7 @@ java -cp bin chatlan.ChatLauncher
 - **Chat Biasa**: Ketik pesan dan tekan Enter atau klik "Kirim"
 - **Private Message**: Ketik `/pm username pesan` untuk mengirim pesan pribadi
 
-## 🏗️ Struktur Project
+##  Struktur Projectnya
 
 ```
 src/
@@ -62,12 +55,12 @@ src/
 │       └── ClientUI.java       # GUI untuk client
 ```
 
-## 🔧 Requirements
+##  Requirements
 
 - Java JDK 8 atau lebih baru
 - Komputer harus terhubung dalam jaringan LAN yang sama
 
-## 📝 Catatan
+##  Catatan
 
 - Pastikan firewall mengizinkan koneksi pada port yang digunakan
 - Server dan semua client harus berada dalam subnet yang sama

@@ -59,9 +59,7 @@ public class ChatServer {
     public void stop() {
         running = false;
         try {
-            // Notify all clients
             broadcast(new Message("Server", "Server shutting down...", Message.Type.SYSTEM));
-            // Close all client connections
             for (ClientHandler handler : clients.values()) {
                 handler.disconnect();
             }
@@ -120,7 +118,6 @@ public class ChatServer {
         return clients.size();
     }
 
-    // ─── Inner Class: ClientHandler ───────────────────────────────────
     private class ClientHandler implements Runnable {
         private Socket socket;
         private ObjectOutputStream out;
@@ -137,11 +134,9 @@ public class ChatServer {
                 out = new ObjectOutputStream(socket.getOutputStream());
                 in = new ObjectInputStream(socket.getInputStream());
 
-                // First message should be the username
                 Message joinMsg = (Message) in.readObject();
                 username = joinMsg.getSender();
 
-                // Check if username is taken
                 if (clients.containsKey(username)) {
                     sendMessage(new Message("Server", "Username '" + username + "' sudah dipakai. Silakan gunakan nama lain.", Message.Type.SYSTEM));
                     socket.close();
@@ -151,24 +146,20 @@ public class ChatServer {
                 clients.put(username, this);
                 listener.onClientJoined(username, clients.size());
 
-                // Broadcast join notification
                 Message notification = new Message(username, username + " bergabung ke chat!", Message.Type.JOIN);
                 broadcast(notification);
                 listener.onMessageReceived(notification);
                 sendUserList();
 
-                // Listen for messages
                 while (running) {
                     Message message = (Message) in.readObject();
                     if (message.getType() == Message.Type.CHAT) {
                         broadcast(message);
                         listener.onMessageReceived(message);
                     } else if (message.getType() == Message.Type.PRIVATE) {
-                        // Send to recipient
                         ClientHandler recipientHandler = clients.get(message.getRecipient());
                         if (recipientHandler != null) {
                             recipientHandler.sendMessage(message);
-                            // Also send back to sender
                             sendMessage(message);
                         } else {
                             sendMessage(new Message("Server", "User '" + message.getRecipient() + "' tidak ditemukan.", Message.Type.SYSTEM));
@@ -177,7 +168,6 @@ public class ChatServer {
                     }
                 }
             } catch (IOException | ClassNotFoundException e) {
-                // Client disconnected
             } finally {
                 if (username != null) {
                     clients.remove(username);
@@ -198,7 +188,6 @@ public class ChatServer {
                 out.writeObject(message);
                 out.flush();
             } catch (IOException e) {
-                // Failed to send
             }
         }
 

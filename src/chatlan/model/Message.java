@@ -15,7 +15,7 @@ public class Message implements Serializable {
     private String content;
     private Type type;
     private String timestamp;
-    private String recipient; // for private messages
+    private String recipient;
 
     public Message(String sender, String content, Type type) {
         this.sender = sender;
